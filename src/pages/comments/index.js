@@ -1,7 +1,8 @@
+import { comments } from "data/comments";
 import { useState } from "react";
 
-export default function CommentsPage() {
-    const [comments, setComments] = useState([]);
+export default function CommentsPage({ commentsList }) {
+    const [comments, setComments] = useState(commentsList);
     const [comment, setComment] = useState('');
     const [isEditing, setIsEditing] = useState(false);
     const [editInputFieldValue, setEditInputFieldValue] = useState('')
@@ -71,4 +72,18 @@ export default function CommentsPage() {
         </>
         
     )
+}
+
+export async function getServerSideProps() {
+
+    // Don't Do this
+    // It's not recommended to call your own api routes in getStaticProps, only call external apis here
+    // Calling your api route add an additional round trip which is not necessary
+    // const response = await fetch(`http://localhost:3000/api/comments}`);
+    // const responseData = await response.json();
+    return {
+        props: {
+            commentsList: comments
+        }
+    }
 }
