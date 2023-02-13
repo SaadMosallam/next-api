@@ -11,6 +11,12 @@ export default function handler(req, res) {
         const commentIndex = comments.findIndex((comment) => comment.id === parseInt(commentId));
         comments.splice(commentIndex, 1);
         res.status(200).json(comment)
+    } else if (req.method === 'PUT') {
+        const editedComment = req.body;
+        const commentIndex = comments.findIndex((comment) => comment.id === parseInt(commentId));
+
+        comments.splice(commentIndex, 1, editedComment)
+        res.status(200).json(editedComment)
     }
    
 }
